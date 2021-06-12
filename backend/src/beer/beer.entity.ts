@@ -2,7 +2,10 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Beer {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'uuid', nullable: false, unique: true })
   uid: string;
 
   @Column({ type: 'varchar', nullable: true })
