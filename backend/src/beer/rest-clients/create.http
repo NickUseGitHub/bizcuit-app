@@ -1,0 +1,15 @@
+POST http://localhost:3001/api/v1/beer HTTP/1.1
+Content-Type: application/json; charset=utf-8
+
+{
+  "uid": "d07c0d17-f910-4fcd-b554-02d61361d953",
+  "brand": "Corona Extra",
+  "name": "Storm King Stout",
+  "style": "Strong Ale",
+  "hop": "Willamette",
+  "yeast": "3463 - Forbidden Fruit",
+  "malts": "Caramel",
+  "ibu": "51 IBU",
+  "alcohol": "5.9%",
+  "blg": "8.4°Blg"
+}
