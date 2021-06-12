@@ -12,3 +12,16 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=mydb
+
+  migration:
+    image: node:14.17.0-alpine3.13
+    command: yarn migration:run
+    working_dir: /usr/src/app
+    volumes:
+      - ./backend:/usr/src/app
+    links:
+      - db
+    depends_on:
+      - db
+    env_file:
+      - ./backend/.env.example
