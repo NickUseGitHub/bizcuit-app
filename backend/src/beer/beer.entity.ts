@@ -32,6 +32,9 @@ export class Beer {
   @Column({ type: 'varchar', nullable: true })
   blg: string;
 
+  @Column({ type: 'int', nullable: true, default: 0 })
+  randomCount: string;
+
   @Column({ type: 'timestamptz' })
   createdAt: Date;
 
