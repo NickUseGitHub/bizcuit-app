@@ -25,3 +25,18 @@ services:
       - db
     env_file:
       - ./backend/.env.example
+
+  backend:
+    image: node:14.17.0-alpine3.13
+    command: yarn start:dev
+    working_dir: /usr/src/app
+    volumes:
+      - ./backend:/usr/src/app
+    expose:
+      - "3001"
+    ports:
+      - "3001:3001"
+    depends_on:
+      - migration
+    env_file:
+      - ./backend/.env.example
