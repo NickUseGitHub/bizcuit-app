@@ -1,9 +1,12 @@
 import { Controller, Get } from '@nestjs/common';
+import { BeerService } from './beer.service';
 
 @Controller('beer')
 export class BeerController {
-  @Get()
+  constructor(private readonly beerService: BeerService) {}
+
+  @Get('/random')
   getBeer() {
-    return 'This is beer';
+    return 'This is random beer';
   }
 }

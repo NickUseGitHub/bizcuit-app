@@ -1,15 +1,10 @@
-import {
-  company as fakerCompany,
-  date as fakerDate,
-  name as fakerName,
-  datatype as fakerDatatype,
-} from 'faker';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Beer } from './beer.entity';
+import axios from 'axios';
 
 @Injectable()
 export class BeerService implements OnModuleInit {
@@ -31,33 +26,41 @@ export class BeerService implements OnModuleInit {
     }
 
     const amountDataForSeed = 10;
-    const fakedBeers: Beer[] = [...new Array(amountDataForSeed)].map(
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      function getSeedBeerData(_, index: number): Beer {
-        const beer = new Beer();
+    const fakeBeers = (await Promise.all(
+      [...new Array(amountDataForSeed)].map(
+        async function getFakeBeer(): Promise<Beer> {
+          const fakeBeer = await this.getRandomBeerFromThirdParty();
+          this.beersRepository.save(fakeBeer);
 
-        beer.uid = fakerDatatype.uuid();
-        beer.brand = fakerCompany.companyName();
-        beer.name = fakerName.firstName();
-        beer.style = 'style';
-        beer.hop = 'hop';
-        beer.yeast = 'yeast';
-        beer.malts = 'malts';
-        beer.ibu = 'ibu';
-        beer.alcohol = 'alcohol';
-        beer.blg = 'blg';
-        beer.createdAt = fakerDate.past();
-        beer.updatedAt = fakerDate.past();
+          return fakeBeer;
+        }.bind(this),
+      ),
+    )) as Beer[];
 
-        return beer;
-      },
-    );
+    return fakeBeers;
+  }
 
-    await Promise.all(
-      fakedBeers.map((fakeBeer) => this.beersRepository.save(fakeBeer)),
-    );
+  async getRandomBeerFromThirdParty() {
+    const beerFromApi = await axios
+      .get<Beer>('https://random-data-api.com/api/beer/random_beer')
+      .then((res) => res.data);
 
-    return fakedBeers;
+    const now = new Date();
+    const beer = new Beer();
+    beer.uid = beerFromApi.uid;
+    beer.brand = beerFromApi.brand;
+    beer.name = beerFromApi.name;
+    beer.style = beerFromApi.style;
+    beer.hop = beerFromApi.hop;
+    beer.yeast = beerFromApi.yeast;
+    beer.malts = beerFromApi.malts;
+    beer.ibu = beerFromApi.ibu;
+    beer.alcohol = beerFromApi.alcohol;
+    beer.blg = beerFromApi.blg;
+    beer.createdAt = now;
+    beer.updatedAt = now;
+
+    return beer;
   }
 
   onModuleInit() {
