@@ -6,7 +6,10 @@ export class BeerController {
   constructor(private readonly beerService: BeerService) {}
 
   @Get('/random')
-  getBeer() {
-    return 'This is random beer';
+  async getRandomBeer() {
+    const randomBeer = await this.beerService.getRandomBeer();
+    await this.beerService.increaseBeerRandomCount(randomBeer);
+
+    return randomBeer;
   }
 }

@@ -40,6 +40,24 @@ export class BeerService implements OnModuleInit {
     return fakeBeers;
   }
 
+  async getRandomBeer() {
+    return this.beersRepository
+      .createQueryBuilder()
+      .select()
+      .orderBy('RANDOM()')
+      .limit(1)
+      .getOne();
+  }
+
+  async increaseBeerRandomCount(beer: Beer): Promise<void> {
+    if (!beer) {
+      return;
+    }
+
+    beer.randomCount = beer.randomCount + 1;
+    await this.beersRepository.save(beer);
+  }
+
   async getRandomBeerFromThirdParty() {
     const beerFromApi = await axios
       .get<Beer>('https://random-data-api.com/api/beer/random_beer')
