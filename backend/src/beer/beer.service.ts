@@ -14,8 +14,15 @@ export class BeerService implements OnModuleInit {
   ) {}
 
   private async seedData(): Promise<void> {
-    const isSeedData = this.configService.get<string>('SEED_DATA');
+    const isSeedData = this.configService.get<string>('SEED_DATA') || '';
     const nodeEnv = this.configService.get<string>('NODE_ENV');
+
+    const shouldSeedData =
+      isSeedData.toUpperCase() === 'YES' && nodeEnv !== 'production';
+
+    if (shouldSeedData !== true) {
+      return;
+    }
 
     console.log('isSeedData', isSeedData);
     console.log('nodeEnv', nodeEnv);
