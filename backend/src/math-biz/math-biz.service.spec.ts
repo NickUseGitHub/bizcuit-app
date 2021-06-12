@@ -1,5 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MathBizService } from './math-biz.service';
+import {
+  MathBizService,
+  invalidParameterError,
+  parameterError,
+} from './math-biz.service';
 
 type ExpectResult = string;
 type Tester = [string, string, ExpectResult];
@@ -36,6 +40,35 @@ describe('MathBizService', () => {
       const [numA, numB, expectResult] = tester;
 
       expect(service.sum(numA, numB)).toBe(expectResult);
+    });
+  });
+
+  it('should be throw an error when get wrong type parameters', () => {
+    const testers: Tester[] = [
+      [1, 'asdfasdfa'],
+      [5, undefined],
+      [23, null],
+      ['asdfadsfas', null],
+      ['32', null],
+    ].map(function mapToTesterType(arrTest) {
+      const [numA, numB] = arrTest;
+
+      return [numA, numB] as unknown as Tester;
+    });
+
+    testers.forEach((tester) => {
+      const [numA, numB] = tester;
+      let error;
+
+      try {
+        service.sum(numA, numB);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(
+        error === parameterError || error === invalidParameterError,
+      ).toBeTruthy();
     });
   });
 });

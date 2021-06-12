@@ -1,18 +1,17 @@
 import { Injectable } from '@nestjs/common';
 
+export const parameterError = new Error('typeof argument is not a number.');
+export const invalidParameterError = new Error('Argument is invalid.');
+
 @Injectable()
 export class MathBizService {
   sum(numA: string, numB: string): string {
-    if (Number.isNaN(numA) === true) {
-      throw new Error(
-        `typeof numA[${numA} -- ${typeof numA}] is not a number.`,
-      );
+    if (!numA || !numB) {
+      throw invalidParameterError;
     }
 
-    if (Number.isNaN(numB) === true) {
-      throw new Error(
-        `typeof numB[${numB} -- ${typeof numB}] is not a number.`,
-      );
+    if (isNaN(Number(numA)) === true || isNaN(Number(numB)) === true) {
+      throw parameterError;
     }
 
     return String(Number(numA) + Number(numB));
