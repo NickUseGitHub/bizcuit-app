@@ -24,11 +24,12 @@ export default function Home() {
 
   const onNextButtonClick = () => getRandomBeer()
   const onPrevButtonClick = () => {
-    if (!beers || beers.length === 1) {
+    const isAbleToCallPreviousBeer = !beers || beers.length === 1
+    if (isAbleToCallPreviousBeer === true) {
       return
     }
 
-    const [removedBeer, ...restBeers] = beers
+    const [, ...restBeers] = beers
     setBeer(restBeers)
   }
 
