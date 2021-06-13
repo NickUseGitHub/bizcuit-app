@@ -15,7 +15,7 @@ export default function Home() {
   const getRandomBeer = () => {
     setIsLoading(true)
 
-    const delaySecond = 0.3
+    const delaySecond = 0.5
     beerService
       .getRandomBeer(delaySecond)
       .then((beerFromApi) => beerFromApi && setBeer([beerFromApi, ...beers]))
