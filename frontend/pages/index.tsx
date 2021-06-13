@@ -1,13 +1,44 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
+import { Beer } from '@backend/beer/beer.entity'
+import BeerInfo from '@components/BeerInfo'
+import LoadingBox from '@components/LoadingBox'
 import beerService from '@services/beer.service'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
-  useEffect(function getRandomBeer() {
-    beerService.getRandomBeer().then((beer) => console.log('beer', beer))
+  const [beers, setBeer] = useState<Beer[]>([])
+  const [isLoading, setIsLoading] = useState<Boolean>(false)
+
+  const getRandomBeer = () => {
+    setIsLoading(true)
+
+    const delaySecond = 0.3
+    beerService
+      .getRandomBeer(delaySecond)
+      .then((beerFromApi) => beerFromApi && setBeer([beerFromApi, ...beers]))
+      .finally(() => setIsLoading(false))
+  }
+
+  const onNextButtonClick = () => getRandomBeer()
+  const onPrevButtonClick = () => {
+    if (!beers || beers.length === 1) {
+      return
+    }
+
+    const [removedBeer, ...restBeers] = beers
+    setBeer(restBeers)
+  }
+
+  const [currentBeerInfo] = beers
+  const isButtonPrevDisabled = beers && beers.length <= 1
+  const isShowLoadingBox = isLoading === true
+  const isShowBeerInfo = isLoading !== true
+
+  useEffect(function onInitPage() {
+    getRandomBeer()
   }, [])
 
   return (
@@ -18,44 +49,26 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <main className={`${styles.main} md:border-2 px-2 rounded-md`}>
+        {isShowLoadingBox && <LoadingBox />}
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+        {isShowBeerInfo && (
+          <div className="flex">
+            <BeerInfo beer={currentBeerInfo} />
+          </div>
+        )}
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
+        <div className="flex w-full">
+          <button
             className={styles.card}
+            onClick={onPrevButtonClick}
+            disabled={isButtonPrevDisabled}
           >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+            Prev
+          </button>
+          <button className={styles.card} onClick={onNextButtonClick}>
+            Next
+          </button>
         </div>
       </main>
 
