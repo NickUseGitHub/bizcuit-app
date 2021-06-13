@@ -8,6 +8,30 @@ import {
 type ExpectResult = string;
 type Tester = [string, string, ExpectResult];
 
+const validTesters: Tester[] = [
+  [1, 3],
+  [5, 9],
+  [23, 328],
+  [29, 28],
+  [58, 82],
+].map(function mapToTesterType(arrTest) {
+  const [numA, numB] = arrTest;
+
+  return [String(numA), String(numB), String(numA + numB)];
+});
+
+const invalidTesters: Tester[] = [
+  [1, 'asdfasdfa'],
+  [5, undefined],
+  [23, null],
+  ['asdfadsfas', null],
+  ['32', null],
+].map(function mapToTesterType(arrTest) {
+  const [numA, numB] = arrTest;
+
+  return [numA, numB] as unknown as Tester;
+});
+
 describe('MathBizService', () => {
   let service: MathBizService;
 
@@ -24,39 +48,24 @@ describe('MathBizService', () => {
   });
 
   it('should be get correct result', () => {
-    const testers: Tester[] = [
-      [1, 3],
-      [5, 9],
-      [23, 328],
-      [29, 28],
-      [58, 82],
-    ].map(function mapToTesterType(arrTest) {
-      const [numA, numB] = arrTest;
-
-      return [String(numA), String(numB), String(numA + numB)];
-    });
-
-    testers.forEach((tester) => {
+    validTesters.forEach((tester) => {
       const [numA, numB, expectResult] = tester;
 
       expect(service.sum(numA, numB)).toBe(expectResult);
     });
   });
 
-  it('should be throw an error when get wrong type parameters', () => {
-    const testers: Tester[] = [
-      [1, 'asdfasdfa'],
-      [5, undefined],
-      [23, null],
-      ['asdfadsfas', null],
-      ['32', null],
-    ].map(function mapToTesterType(arrTest) {
-      const [numA, numB] = arrTest;
+  it('should all be get correct result type string', () => {
+    validTesters.forEach((tester) => {
+      const [numA, numB] = tester;
+      const expectType = 'string';
 
-      return [numA, numB] as unknown as Tester;
+      expect(typeof service.sum(numA, numB)).toBe(expectType);
     });
+  });
 
-    testers.forEach((tester) => {
+  it('should be throw an error when get wrong type parameters', () => {
+    invalidTesters.forEach((tester) => {
       const [numA, numB] = tester;
       let error;
 
