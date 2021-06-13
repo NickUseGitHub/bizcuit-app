@@ -1,44 +1,41 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import axios from 'axios';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Beer } from './beer.entity';
-import axios from 'axios';
 import { CreateBeerDto } from './create-beer.dto';
 
 @Injectable()
-export class BeerService implements OnModuleInit {
+export class BeerService {
   constructor(
     private configService: ConfigService,
     @InjectRepository(Beer)
     private readonly beersRepository: Repository<Beer>,
   ) {}
 
-  private async seedData(): Promise<Beer[]> {
-    const isSeedData = this.configService.get<string>('SEED_DATA') || '';
-    const nodeEnv = this.configService.get<string>('NODE_ENV');
+  static async getRandomBeerFromThirdParty() {
+    const beerFromApi = await axios
+      .get<Beer>('https://random-data-api.com/api/beer/random_beer')
+      .then((res) => res.data);
 
-    const shouldSeedData =
-      isSeedData.toUpperCase() === 'YES' && nodeEnv !== 'production';
+    const now = new Date();
+    const beer = new Beer();
+    beer.uid = beerFromApi.uid;
+    beer.brand = beerFromApi.brand;
+    beer.name = beerFromApi.name;
+    beer.style = beerFromApi.style;
+    beer.hop = beerFromApi.hop;
+    beer.yeast = beerFromApi.yeast;
+    beer.malts = beerFromApi.malts;
+    beer.ibu = beerFromApi.ibu;
+    beer.alcohol = beerFromApi.alcohol;
+    beer.blg = beerFromApi.blg;
+    beer.createdAt = now;
+    beer.updatedAt = now;
 
-    if (shouldSeedData !== true) {
-      return [];
-    }
-
-    const amountDataForSeed = 10;
-    const fakeBeers = (await Promise.all(
-      [...new Array(amountDataForSeed)].map(
-        async function getFakeBeer(): Promise<Beer> {
-          const fakeBeer = await this.getRandomBeerFromThirdParty();
-          this.beersRepository.save(fakeBeer);
-
-          return fakeBeer;
-        }.bind(this),
-      ),
-    )) as Beer[];
-
-    return fakeBeers;
+    return beer;
   }
 
   async create(createBeerDto: CreateBeerDto): Promise<Beer> {
@@ -76,9 +73,5 @@ export class BeerService implements OnModuleInit {
 
     beer.randomCount = beer.randomCount + 1;
     await this.beersRepository.save(beer);
-  }
-
-  onModuleInit() {
-    this.seedData();
   }
 }
