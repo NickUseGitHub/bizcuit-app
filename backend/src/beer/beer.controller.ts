@@ -4,18 +4,19 @@ import {
   Controller,
   Get,
   Post,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
-import { Beer } from './beer.entity';
 import { BeerService } from './beer.service';
+import { CreateBeerDto } from './create-beer.dto';
 
 @Controller('beer')
 export class BeerController {
   constructor(private readonly beerService: BeerService) {}
 
   @Post()
-  async create(
-    @Body() beer: Omit<Beer, 'randomCount' | 'createdAt' | 'updatedAt'>,
-  ) {
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async create(@Body() beer: CreateBeerDto) {
     try {
       const beerFromDb = await this.beerService.create(beer);
 

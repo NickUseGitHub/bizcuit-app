@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 
 import { Beer } from './beer.entity';
 import axios from 'axios';
+import { CreateBeerDto } from './create-beer.dto';
 
 @Injectable()
 export class BeerService implements OnModuleInit {
@@ -40,21 +41,19 @@ export class BeerService implements OnModuleInit {
     return fakeBeers;
   }
 
-  async create(
-    beerFromApi: Omit<Beer, 'randomCount' | 'createdAt' | 'updatedAt'>,
-  ): Promise<Beer> {
+  async create(createBeerDto: CreateBeerDto): Promise<Beer> {
     const now = new Date();
     const beer = new Beer();
-    beer.uid = beerFromApi.uid;
-    beer.brand = beerFromApi.brand;
-    beer.name = beerFromApi.name;
-    beer.style = beerFromApi.style;
-    beer.hop = beerFromApi.hop;
-    beer.yeast = beerFromApi.yeast;
-    beer.malts = beerFromApi.malts;
-    beer.ibu = beerFromApi.ibu;
-    beer.alcohol = beerFromApi.alcohol;
-    beer.blg = beerFromApi.blg;
+    beer.uid = createBeerDto.uid;
+    beer.brand = createBeerDto.brand;
+    beer.name = createBeerDto.name;
+    beer.style = createBeerDto.style;
+    beer.hop = createBeerDto.hop;
+    beer.yeast = createBeerDto.yeast;
+    beer.malts = createBeerDto.malts;
+    beer.ibu = createBeerDto.ibu;
+    beer.alcohol = createBeerDto.alcohol;
+    beer.blg = createBeerDto.blg;
     beer.createdAt = now;
     beer.updatedAt = now;
 
