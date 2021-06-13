@@ -99,6 +99,10 @@
   border-color: #0070f3;
 }
 
+.card:disabled {
+  opacity: 0.5;
+}
+
 .logo {
   height: 1em;
   margin-left: 0.5rem;
