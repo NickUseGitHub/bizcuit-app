@@ -33,3 +33,16 @@ for Docker Desktop version 3.4.0 or newer
 for Docker Desktop older than version 3.4.0
   > run "docker-compose up"
 ```
+
+- run frontend's website on port **3000**
+- run backend's api on port **3001**
+
+### To connect database
+
+#### default database's connection configuration
+
+- DB_HOST: localhost
+- DB_PORT: 5432
+- DB_USERNAME=postgres
+- DB_PASSWORD=password
+- DB_DATABASE=mydb
