@@ -69,29 +69,6 @@ export class BeerService implements OnModuleInit {
       .getOne();
   }
 
-  async getRandomBeerFromThirdParty() {
-    const beerFromApi = await axios
-      .get<Beer>('https://random-data-api.com/api/beer/random_beer')
-      .then((res) => res.data);
-
-    const now = new Date();
-    const beer = new Beer();
-    beer.uid = beerFromApi.uid;
-    beer.brand = beerFromApi.brand;
-    beer.name = beerFromApi.name;
-    beer.style = beerFromApi.style;
-    beer.hop = beerFromApi.hop;
-    beer.yeast = beerFromApi.yeast;
-    beer.malts = beerFromApi.malts;
-    beer.ibu = beerFromApi.ibu;
-    beer.alcohol = beerFromApi.alcohol;
-    beer.blg = beerFromApi.blg;
-    beer.createdAt = now;
-    beer.updatedAt = now;
-
-    return beer;
-  }
-
   async increaseBeerRandomCount(beer: Beer): Promise<void> {
     if (!beer) {
       return;

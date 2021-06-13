@@ -26,6 +26,19 @@ services:
     env_file:
       - ./backend/.env.example
 
+  seed:
+    image: node:14.17.0-alpine3.13
+    command: yarn migration:seed
+    working_dir: /usr/src/app
+    volumes:
+      - ./backend:/usr/src/app
+    links:
+      - db
+    depends_on:
+      - migration
+    env_file:
+      - ./backend/.env.example
+
   backend:
     image: node:14.17.0-alpine3.13
     command: yarn start:dev
