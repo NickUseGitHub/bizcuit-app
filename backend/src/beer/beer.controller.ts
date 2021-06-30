@@ -7,12 +7,16 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { VineService } from 'src/vine/vine/vine.service';
 import { BeerService } from './beer.service';
 import { CreateBeerDto } from './create-beer.dto';
 
 @Controller('beer')
 export class BeerController {
-  constructor(private readonly beerService: BeerService) {}
+  constructor(
+    private readonly beerService: BeerService,
+    private readonly vineService: VineService,
+  ) {}
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -35,6 +39,12 @@ export class BeerController {
   async getRandomBeer() {
     const randomBeer = await this.beerService.getRandomBeer();
     await this.beerService.increaseBeerRandomCount(randomBeer);
+
+    const testBool = await this.vineService.testVineService();
+
+    if (!testBool) {
+      throw new BadRequestException();
+    }
 
     return randomBeer;
   }

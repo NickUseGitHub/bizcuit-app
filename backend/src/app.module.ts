@@ -5,6 +5,7 @@ import { BeerController } from './beer/beer.controller';
 import { Beer } from './beer/beer.entity';
 import { BeerService } from './beer/beer.service';
 import { getBackendEnv } from './config/database.config';
+import { VinesModule } from './vine/vines.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { getBackendEnv } from './config/database.config';
       useFactory: getBackendEnv,
     }),
     TypeOrmModule.forFeature([Beer]),
+    VinesModule,
   ],
   controllers: [BeerController],
   providers: [BeerService],
