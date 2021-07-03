@@ -14,10 +14,11 @@ import { getBackendEnv } from '../config/database-beer.config';
       envFilePath: ['.env', '.env.example'],
     }),
     TypeOrmModule.forRootAsync({
+      name: 'beer',
       imports: [ConfigModule],
       useFactory: getBackendEnv,
     }),
-    TypeOrmModule.forFeature([Beer]),
+    TypeOrmModule.forFeature([Beer], 'beer'),
     VinesModule,
   ],
   controllers: [BeerController],

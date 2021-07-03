@@ -23,6 +23,7 @@ export const getBackendEnv: ConfigFactory<ConnectionOptions> = (
   if (configService) {
     return {
       type: 'postgres',
+      name: 'vine',
       host: configService.get('DB_HOST1'),
       port: +configService.get<number>('DB_PORT1'),
       username: configService.get('DB_USERNAME1'),
@@ -34,6 +35,7 @@ export const getBackendEnv: ConfigFactory<ConnectionOptions> = (
 
   return {
     type: 'postgres',
+    name: 'vine',
     host: process.env.DB_HOST1 || 'localhost',
     port: +process.env.DB_PORT1 || 5432,
     username: process.env.DB_USERNAME1,

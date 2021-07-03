@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -10,8 +9,7 @@ import { CreateBeerDto } from './create-beer.dto';
 @Injectable()
 export class BeerService {
   constructor(
-    private configService: ConfigService,
-    @InjectRepository(Beer)
+    @InjectRepository(Beer, 'beer')
     private readonly beersRepository: Repository<Beer>,
   ) {}
 
