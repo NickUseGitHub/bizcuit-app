@@ -6,7 +6,7 @@ import { VinesModule } from 'src/vine/vines.module';
 import { BeerController } from './beer.controller';
 import { Beer } from './beer.entity';
 import { BeerService } from './beer.service';
-import { getBackendEnv } from '../config/database.config';
+import { getBackendEnv } from '../config/database-beer.config';
 
 @Module({
   imports: [

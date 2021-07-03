@@ -5,14 +5,18 @@ import { ConfigFactory, ConfigService, registerAs } from '@nestjs/config';
 export const getBackendEnv: ConfigFactory<ConnectionOptions> = (
   configService?: ConfigService,
 ) => {
-  const entitiesPath = path.resolve(__dirname, '../**/*.entity{.ts,.js}');
-  const migrationPath = path.resolve(__dirname, '../../migration/*{.ts,.js}');
+  const migrationsDir = 'migration-beer';
+  const entitiesPath = path.resolve(__dirname, '../beer/**/*.entity{.ts,.js}');
+  const migrationPath = path.resolve(
+    __dirname,
+    `../../${migrationsDir}/*{.ts,.js}`,
+  );
 
   const commonConfigs = {
     entities: [entitiesPath],
     migrations: [migrationPath],
     cli: {
-      migrationsDir: 'migration',
+      migrationsDir,
     },
   };
 

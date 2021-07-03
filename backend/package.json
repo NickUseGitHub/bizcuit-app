@@ -18,9 +18,12 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "migration:create": "ts-node ./node_modules/typeorm/cli.js -f ./script/typeorm-connection.ts migration:create",
-    "migration:generate": "ts-node ./node_modules/.bin/typeorm -f ./script/typeorm-connection.ts migration:generate",
-    "migration:run": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm -f ./script/typeorm-connection.ts migration:run",
+    "migration-beer:create": "ts-node ./node_modules/typeorm/cli.js -f ./script/typeorm-connection-beer.ts migration:create",
+    "migration-vine:create": "ts-node ./node_modules/typeorm/cli.js -f ./script/typeorm-connection-vine.ts migration:create",
+    "migration-beer:generate": "ts-node ./node_modules/.bin/typeorm -f ./script/typeorm-connection-beer.ts migration:generate",
+    "migration-vine:generate": "ts-node ./node_modules/.bin/typeorm -f ./script/typeorm-connection-vine.ts migration:generate",
+    "migration-beer:run": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm -f ./script/typeorm-connection-beer.ts migration:run",
+    "migration-vine:run": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm -f ./script/typeorm-connection-vine.ts migration:run",
     "migration:seed": "ts-node script/seed-data"
   },
   "dependencies": {

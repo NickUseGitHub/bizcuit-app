@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class InitBeerEntity1623524180692 implements MigrationInterface {
-  name = 'InitBeerEntity1623524180692';
+export class CreateBeer1625332174973 implements MigrationInterface {
+  name = 'CreateBeer1625332174973';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
