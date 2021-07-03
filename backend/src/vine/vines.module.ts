@@ -18,7 +18,6 @@ import { VineService } from './vine/vine.service';
       useFactory: getBackendEnv,
     }),
     TypeOrmModule.forFeature([Vine], 'vine'),
-    VinesModule,
   ],
   controllers: [VineController],
   providers: [VineService],
