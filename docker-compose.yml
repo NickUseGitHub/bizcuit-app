@@ -13,6 +13,19 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=mydb
 
+  db1:
+    image: postgres:10
+    volumes:
+      - ./db1:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mydb
+
   migration:
     image: node:14.17.0-alpine3.13
     command: yarn migration:run
