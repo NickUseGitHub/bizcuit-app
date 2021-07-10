@@ -8,6 +8,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { VineService } from 'src/vine/vine/vine.service';
+import { BeerDepService } from './beer-dep.service';
 import { BeerService } from './beer.service';
 import { CreateBeerDto } from './create-beer.dto';
 
@@ -15,6 +16,7 @@ import { CreateBeerDto } from './create-beer.dto';
 export class BeerController {
   constructor(
     private readonly beerService: BeerService,
+    private readonly beerDepService: BeerDepService,
     private readonly vineService: VineService,
   ) {}
 
@@ -47,5 +49,10 @@ export class BeerController {
     }
 
     return randomBeer;
+  }
+
+  @Get('/test-naja')
+  async testDepsCircular() {
+    return this.beerDepService.callVineDepForTestCircularDeps();
   }
 }

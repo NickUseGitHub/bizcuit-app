@@ -1,9 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { BeerDepService } from '../beer/beer-dep.service';
 
 @Injectable()
 export class VineDepService {
-  constructor(private readonly beerDepService: BeerDepService) {}
+  constructor(
+    @Inject(forwardRef(() => BeerDepService))
+    private readonly beerDepService: BeerDepService,
+  ) {}
 
   async testCircularDep(): Promise<string> {
     return 'this is from VineDepService';
