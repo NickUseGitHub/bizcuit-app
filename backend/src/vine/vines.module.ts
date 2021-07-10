@@ -7,6 +7,7 @@ import { VineController } from './vine/vine.controller';
 import { Vine } from './vine/vine.entity';
 import { VineService } from './vine/vine.service';
 import { VineDepService } from './vine-dep.service';
+import { BeerDepService } from 'src/beer/beer-dep.service';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { VineDepService } from './vine-dep.service';
     TypeOrmModule.forFeature([Vine], 'vine'),
   ],
   controllers: [VineController],
-  providers: [VineService, VineDepService],
+  providers: [BeerDepService, VineService, VineDepService],
   exports: [VineService, VineDepService],
 })
 export class VinesModule {}

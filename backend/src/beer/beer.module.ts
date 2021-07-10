@@ -8,6 +8,7 @@ import { Beer } from './beer.entity';
 import { BeerService } from './beer.service';
 import { BeerDepService } from './beer-dep.service';
 import { getBackendEnv } from '../config/database-beer.config';
+import { VineDepService } from 'src/vine/vine-dep.service';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { getBackendEnv } from '../config/database-beer.config';
     VinesModule,
   ],
   controllers: [BeerController],
-  providers: [BeerService, BeerDepService],
+  providers: [BeerService, BeerDepService, VineDepService],
   exports: [BeerDepService],
 })
 export class BeerModule {}
