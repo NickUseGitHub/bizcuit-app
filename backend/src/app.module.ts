@@ -5,5 +5,6 @@ import { VinesModule } from './vine/vines.module';
 
 @Module({
   imports: [BeerModule, VinesModule],
+  providers: [],
 })
 export class AppModule {}

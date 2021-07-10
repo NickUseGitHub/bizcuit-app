@@ -6,6 +6,7 @@ import { getBackendEnv } from '../config/database-vine.config';
 import { VineController } from './vine/vine.controller';
 import { Vine } from './vine/vine.entity';
 import { VineService } from './vine/vine.service';
+import { VineDepService } from './vine-dep.service';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { VineService } from './vine/vine.service';
     TypeOrmModule.forFeature([Vine], 'vine'),
   ],
   controllers: [VineController],
-  providers: [VineService],
-  exports: [VineService],
+  providers: [VineService, VineDepService],
+  exports: [VineService, VineDepService],
 })
 export class VinesModule {}
