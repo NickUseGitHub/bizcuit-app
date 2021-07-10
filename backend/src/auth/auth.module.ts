@@ -10,5 +10,6 @@ import { UserModule } from '~user/user.module';
   imports: [UserModule, PassportModule],
   providers: [AuthService, LocalStrategy],
   controllers: [AuthController],
+  exports: [AuthService],
 })
 export class AuthModule {}

@@ -15,4 +15,8 @@ export class AuthService {
     }
     return null;
   }
+
+  async isLogin(accessToken: string): Promise<boolean> {
+    return accessToken === 'accessToken';
+  }
 }

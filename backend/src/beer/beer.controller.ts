@@ -10,6 +10,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '~auth/guards/auth-guard';
+import { RequiredAuthGuard } from '~auth/guards/require-login-guard';
 
 import { BeerDepService } from '~beer/beer-dep.service';
 import { BeerService } from '~beer/beer.service';
@@ -43,6 +44,7 @@ export class BeerController {
 
   @Get('/random')
   @SetMetadata('roles', ['admin'])
+  @UseGuards(RequiredAuthGuard)
   @UseGuards(AuthGuard)
   async getRandomBeer() {
     const randomBeer = await this.beerService.getRandomBeer();

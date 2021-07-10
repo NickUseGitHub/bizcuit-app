@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { AuthModule } from '~auth/auth.module';
 import { getBackendEnv } from '~config/database-beer.config';
 import { BeerController } from '~beer/beer.controller';
 import { Beer } from '~beer/beer.entity';
@@ -21,6 +22,7 @@ import { VineDepService } from '~vine/vine-dep.service';
       useFactory: getBackendEnv,
     }),
     TypeOrmModule.forFeature([Beer], 'beer'),
+    AuthModule,
     VinesModule,
   ],
   controllers: [BeerController],
