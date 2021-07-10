@@ -9,13 +9,14 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { AuthGuard } from '~auth/guards/auth-guard';
-import { RequiredAuthGuard } from '~auth/guards/require-login-guard';
 
+import { Beer } from '~beer/beer.entity';
 import { BeerDepService } from '~beer/beer-dep.service';
 import { BeerService } from '~beer/beer.service';
 import { CreateBeerDto } from '~beer/create-beer.dto';
+import { AuthBeerGuard } from '~beer/guards/auth-beer-guard';
 import { VineService } from '~vine/vine/vine.service';
+import { AuthBeerParams } from './decorators/auth-beer-params.decorator';
 
 @Controller('beer')
 export class BeerController {
@@ -44,9 +45,8 @@ export class BeerController {
 
   @Get('/random')
   @SetMetadata('roles', ['admin'])
-  @UseGuards(RequiredAuthGuard)
-  @UseGuards(AuthGuard)
-  async getRandomBeer() {
+  @UseGuards(AuthBeerGuard)
+  async getRandomBeer(@AuthBeerParams() authBeerParams: Beer) {
     const randomBeer = await this.beerService.getRandomBeer();
     await this.beerService.increaseBeerRandomCount(randomBeer);
 
@@ -55,6 +55,8 @@ export class BeerController {
     if (!testBool) {
       throw new BadRequestException();
     }
+
+    console.log('authBeerParams', authBeerParams);
 
     return randomBeer;
   }

@@ -64,6 +64,10 @@ export class BeerService {
       .getOne();
   }
 
+  async findById(id: number) {
+    return this.beersRepository.findOne(id);
+  }
+
   async increaseBeerRandomCount(beer: Beer): Promise<void> {
     if (!beer) {
       return;

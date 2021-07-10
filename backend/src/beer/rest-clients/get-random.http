@@ -1,2 +1,2 @@
 GET {{backendApi}}/beer/random?ngong=naja HTTP/1.1
-Cookie: access_token=accessToken;
+Cookie: access_token=15;
