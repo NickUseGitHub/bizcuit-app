@@ -1,1 +1,1 @@
-GET {{backendApi}}/beer/random HTTP/1.1
+GET {{backendApi}}/beer/random?ngong=naja HTTP/1.1

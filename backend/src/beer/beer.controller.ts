@@ -4,9 +4,12 @@ import {
   Controller,
   Get,
   Post,
+  SetMetadata,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { AuthGuard } from '~auth/guards/auth-guard';
 
 import { BeerDepService } from '~beer/beer-dep.service';
 import { BeerService } from '~beer/beer.service';
@@ -39,6 +42,8 @@ export class BeerController {
   }
 
   @Get('/random')
+  @SetMetadata('roles', ['admin'])
+  @UseGuards(AuthGuard)
   async getRandomBeer() {
     const randomBeer = await this.beerService.getRandomBeer();
     await this.beerService.increaseBeerRandomCount(randomBeer);
