@@ -12,13 +12,13 @@
     "baseUrl": ".",
     "incremental": true,
     "paths": {
-      "@config/*": [
+      "~config/*": [
         "./src/config/*",
       ],
-      "@beer/*": [
+      "~beer/*": [
         "./src/beer/*",
       ],
-      "@vine/*": [
+      "~vine/*": [
         "./src/vine/*",
       ]
     }

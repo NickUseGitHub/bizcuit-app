@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Beer } from '@beer/beer.entity';
-import { CreateBeerDto } from '@beer/create-beer.dto';
+import { Beer } from '~beer/beer.entity';
+import { CreateBeerDto } from '~beer/create-beer.dto';
 
 @Injectable()
 export class BeerService {

@@ -8,10 +8,10 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 
-import { VineService } from '@vine/vine/vine.service';
-import { BeerDepService } from '@beer/beer-dep.service';
-import { BeerService } from '@beer/beer.service';
-import { CreateBeerDto } from '@beer/create-beer.dto';
+import { BeerDepService } from '~beer/beer-dep.service';
+import { BeerService } from '~beer/beer.service';
+import { CreateBeerDto } from '~beer/create-beer.dto';
+import { VineService } from '~vine/vine/vine.service';
 
 @Controller('beer')
 export class BeerController {
