@@ -1,5 +1,5 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
-import { BeerDepService } from '../beer/beer-dep.service';
+import { BeerDepService } from '@beer/beer-dep.service';
 
 @Injectable()
 export class VineDepService {

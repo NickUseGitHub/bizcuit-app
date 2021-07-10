@@ -2,14 +2,14 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { VinesModule } from 'src/vine/vines.module';
-import { VineDepService } from 'src/vine/vine-dep.service';
+import { VinesModule } from '@vine/vines.module';
+import { VineDepService } from '@vine/vine-dep.service';
 
-import { BeerController } from './beer.controller';
-import { Beer } from './beer.entity';
-import { BeerService } from './beer.service';
-import { BeerDepService } from './beer-dep.service';
-import { getBackendEnv } from '../config/database-beer.config';
+import { BeerController } from '@beer/beer.controller';
+import { Beer } from '@beer/beer.entity';
+import { BeerService } from '@beer/beer.service';
+import { BeerDepService } from '@beer/beer-dep.service';
+import { getBackendEnv } from '@config/database-beer.config';
 
 @Module({
   imports: [

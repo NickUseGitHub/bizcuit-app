@@ -7,10 +7,11 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { VineService } from 'src/vine/vine/vine.service';
-import { BeerDepService } from './beer-dep.service';
-import { BeerService } from './beer.service';
-import { CreateBeerDto } from './create-beer.dto';
+
+import { VineService } from '@vine/vine/vine.service';
+import { BeerDepService } from '@beer/beer-dep.service';
+import { BeerService } from '@beer/beer.service';
+import { CreateBeerDto } from '@beer/create-beer.dto';
 
 @Controller('beer')
 export class BeerController {
