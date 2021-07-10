@@ -12,6 +12,9 @@
     "baseUrl": ".",
     "incremental": true,
     "paths": {
+      "~auth/*": [
+        "./src/auth/*",
+      ],
       "~config/*": [
         "./src/config/*",
       ],
