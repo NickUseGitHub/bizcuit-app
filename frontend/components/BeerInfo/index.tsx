@@ -1,5 +1,5 @@
 import React from 'react'
-import { Beer } from '@backend/beer/beer.entity'
+import { Beer } from '~backend/beer/beer.entity'
 
 interface Props {
   beer?: Beer

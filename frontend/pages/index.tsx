@@ -2,10 +2,10 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
-import { Beer } from '@backend/beer/beer.entity'
-import BeerInfo from '@components/BeerInfo'
-import LoadingBox from '@components/LoadingBox'
-import beerService from '@services/beer.service'
+import { Beer } from '~backend/beer/beer.entity'
+import BeerInfo from '~components/BeerInfo'
+import LoadingBox from '~components/LoadingBox'
+import beerService from '~services/beer.service'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {

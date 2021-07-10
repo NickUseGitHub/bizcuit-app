@@ -1,5 +1,5 @@
-import { Beer } from '@backend/beer/beer.entity'
-import { ApiService } from '@services/api.service'
+import { Beer } from '~backend/beer/beer.entity'
+import { ApiService } from '~services/api.service'
 
 class BeerService extends ApiService {
   async getRandomBeer(delaySecond: number = 0): Promise<Beer | null> {
