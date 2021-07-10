@@ -21,6 +21,9 @@
       "~beer/*": [
         "./src/beer/*",
       ],
+      "~user/*": [
+        "./src/user/*",
+      ],
       "~vine/*": [
         "./src/vine/*",
       ]
